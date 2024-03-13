@@ -88,7 +88,10 @@ def find_nodes(node, node_type):
         # if isinstance(node, javalang.tree.FieldDeclaration):
         #     for declarator in node.declarators:
         #         yield CodeElement(declarator.name, line)
-            
+        
+        # # Handle FieldDeclaration nodes for class fields
+        # if isinstance(node, javalang.tree.MethodDeclaration):
+        #     yield CodeElement(node.name, line)
             
 
     # Recursively process child nodes
