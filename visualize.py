@@ -21,4 +21,4 @@ def visualize_matrix(usage_table, total_lines):
     matrix.fillna('', inplace=True)
 
     # matrix.to_csv('usage_matrix.csv')  # Save as CSV
-    matrix.to_excel('usage_matrix.xlsx')  # Save as Excel
+    matrix.to_excel('./output/usage_matrix.xlsx')  # Save as Excel

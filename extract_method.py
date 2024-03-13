@@ -152,5 +152,5 @@ def main(java_file_path):
 
 
 if __name__ == '__main__':
-    java_file_path = 'extract_method_sample.java'
+    java_file_path = './java_samples/extract_method_sample.java'
     main(java_file_path)
