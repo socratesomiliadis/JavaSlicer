@@ -1,3 +1,4 @@
+public class Test {
 public Resource[][] grabManifests(Resource[] rcs) {
     Resource[][] manifests = new Resource[rcs.length][];
     for (int i = 0; i < rcs.length; i++) {
@@ -31,4 +32,4 @@ public Resource[][] grabManifests(Resource[] rcs) {
         }
     }
     return manifests;
-}
+}}

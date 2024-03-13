@@ -83,6 +83,13 @@ def find_nodes(node, node_type):
         # Handle VariableDeclarator nodes (for other types of variable declarations)
         if isinstance(node, javalang.tree.VariableDeclarator):
             yield CodeElement(node.name, line)
+            
+        # # Handle FieldDeclaration nodes for class fields
+        # if isinstance(node, javalang.tree.FieldDeclaration):
+        #     for declarator in node.declarators:
+        #         yield CodeElement(declarator.name, line)
+            
+            
 
     # Recursively process child nodes
     for child in node.children:
@@ -104,22 +111,22 @@ def main(java_file_path):
     tokens = list(javalang.tokenizer.tokenize(java_code))
 
     # Find the index where the method body begins (after the first '{')
+    
     method_body_start_index = next((index for index, token in enumerate(tokens) if
                                     isinstance(token, javalang.tokenizer.Separator) and token.value == '{'), None)
 
     # If we found the beginning of a method body
     if method_body_start_index is not None:
         # Adjust the tokens to start from the method body
-        tokens = tokens[method_body_start_index:]
+        # tokens = tokens[method_body_start_index:]
         parser = javalang.parser.Parser(tokens)
 
         try:
             # Attempt to parse the method body
-            block_statement = parser.parse_block_statement()
+            block_statement = parser.parse_compilation_unit()
 
             # Find variable references and method calls within the method body
             nodes = list(find_nodes(block_statement, javalang.tree.MemberReference))
-
             # Create a dictionary to store where each variable/method (context) is used
             usage_table = {}
 
@@ -146,11 +153,11 @@ def main(java_file_path):
             vm(usage_table, number_of_lines)
 
         except javalang.parser.JavaSyntaxError as e:
-            print("Failed to parse the method body:", e)
+            print("Failed to parse the method body:", e.description, e.args, e.at)
         else:
             print("Parsing completed successfully.")
 
 
 if __name__ == '__main__':
-    java_file_path = './java_samples/extract_method_sample.java'
+    java_file_path = './java_samples/sample2.java'
     main(java_file_path)
